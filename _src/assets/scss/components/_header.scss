@@ -1,0 +1,9 @@
+.page__header {
+  background-color: rgb(31, 32, 32);
+  padding: 20px;
+  &__title {
+    text-align: center;
+    font-weight: 500;
+    color: white;
+  }
+}
