@@ -6,7 +6,10 @@ const btnElement = document.querySelector('.js-btn');
 fetch('http://api.tvmaze.com/search/shows?q=girls')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i].show;
+      console.log(element);
+    }
   });
 
 function getData() {
