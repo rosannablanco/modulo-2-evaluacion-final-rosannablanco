@@ -25,11 +25,15 @@ function saveResult() {
 }
 function paintResultShow() {
   let liElement = document.createElement('li');
-  liElement.setAttribute('class', 'page__main__conatiner__ul__li');
+  liElement.setAttribute('class', 'page__main__conatiner__ul__li js-ul-movie');
   let titleElement = document.createElement('h2');
   let textTitle = document.createTextNode(dataShowResult.name);
   let imgElement = document.createElement('img');
-  imgElement.setAttribute('src', dataShowResult.image.medium);
+  if (dataShowResult.image.medium !== '') {
+    imgElement.setAttribute('src', dataShowResult.image.medium);
+  } else {
+    imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
+  }
   titleElement.appendChild(textTitle);
   liElement.appendChild(titleElement);
   liElement.appendChild(imgElement);
