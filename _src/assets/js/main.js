@@ -2,6 +2,9 @@
 // global variables
 const inputElement = document.querySelector('.js-input');
 const btnElement = document.querySelector('.js-btn');
+const ulElement = document.querySelector('.js-ul-movie');
+//arrays results
+let dataShowResult = new Array();
 
 function getDataApi() {
   const inputElementValue = inputElement.value;
@@ -9,16 +12,30 @@ function getDataApi() {
     .then(response => response.json())
     .then(data => {
       for (let i = 0; i < data.length; i++) {
-        const dataShow = data[i].show;
-        saveResult(dataShow);
+        dataShowResult = data[i].show;
+        saveResult();
       }
     });
-  // eslint-disable-next-line no-console
+  /* .catch(error => console.log(`Ha sucedido un error: ${error}`)); */
 }
 
 //function save result data API
-function saveResult(pDataShow) {
-  console.log(pDataShow);
+function saveResult() {
+  paintResultShow();
+}
+function paintResultShow() {
+  let liElement = document.createElement('li');
+  liElement.setAttribute('class', 'page__main__conatiner__ul__li');
+  let titleElement = document.createElement('h2');
+  let textTitle = document.createTextNode(dataShowResult.name);
+  let imgElement = document.createElement('img');
+  imgElement.setAttribute('src', dataShowResult.image.medium);
+  titleElement.appendChild(textTitle);
+  liElement.appendChild(titleElement);
+  liElement.appendChild(imgElement);
+  ulElement.appendChild(liElement);
+  // eslint-disable-next-line no-console
+  console.log(dataShowResult);
 }
 
 btnElement.addEventListener('click', getDataApi);
