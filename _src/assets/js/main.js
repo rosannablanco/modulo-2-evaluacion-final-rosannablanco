@@ -3,6 +3,7 @@
 const inputElement = document.querySelector('.js-input');
 const btnElement = document.querySelector('.js-btn');
 const ulElement = document.querySelector('.js-ul-movie');
+const ulFav = document.querySelector('.js-ul-fav');
 
 //arrays results
 let dataShowResult = new Array();
@@ -29,7 +30,7 @@ function saveDataShow(pData) {
 function paintResultShow(pDataShowResult) {
   for (const itemSerie of pDataShowResult) {
     let liElement = document.createElement('li');
-    liElement.setAttribute('class', 'page__main__conatiner__ul__li js-ul-movie');
+    liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie');
     let titleElement = document.createElement('h2');
     let textTitle = document.createTextNode(itemSerie.name);
     let imgElement = document.createElement('img');
@@ -43,5 +44,26 @@ function paintResultShow(pDataShowResult) {
     liElement.appendChild(imgElement);
     ulElement.appendChild(liElement);
   }
+
+  let liElements = document.querySelectorAll('.js-li-movie');
+  for (const li of liElements) {
+    li.addEventListener('click', handleEvent);
+  }
 }
+
+//
+function handleEvent(ev) {
+  let liSelected = ev.currentTarget;
+  for (let i = 0; i < dataShowResult.length; i++) {
+    if (liSelected.innerText === dataShowResult[i].name) {
+      showFavResult = dataShowResult.push(dataShowResult[i]);
+    }
+  }
+  paintFav();
+  /* console.dir(); */
+}
+function paintFav() {
+  ulFav.innerHTML = 'HOLA';
+}
+
 btnElement.addEventListener('click', getDataApi);
