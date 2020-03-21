@@ -7,6 +7,8 @@ const ulFav = document.querySelector('.js-ul-fav');
 
 //arrays results search serie
 let dataSerieResult = new Array();
+//arrays results fav serie
+let serieFavResult = new Array();
 
 function getDataApi() {
   const inputElementValue = inputElement.value;
@@ -24,6 +26,7 @@ function saveDataShow(pData) {
     let data = pData[i].show;
     dataSerieResult.push(data);
   }
+  console.log(dataSerieResult);
   paintResultShow(dataSerieResult);
 }
 function paintResultShow(pDataSerieResult) {
@@ -31,35 +34,58 @@ function paintResultShow(pDataSerieResult) {
   for (const itemSerie of pDataSerieResult) {
     let liElement = document.createElement('li');
     liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie');
+    liElement.setAttribute('data-id', itemSerie.id);
     let titleElement = document.createElement('h2');
     let textTitle = document.createTextNode(itemSerie.name);
     let imgElement = document.createElement('img');
-    imgElement.setAttribute('src', itemSerie.image.medium);
+    if (itemSerie.image === null) {
+      imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
+    } else {
+      imgElement.setAttribute('src', itemSerie.image.medium);
+    }
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
     ulElement.appendChild(liElement);
   }
-
   let liElements = document.querySelectorAll('.js-li-movie');
-  for (const li of liElements) {
-    li.addEventListener('click', handleEvent);
+  for (const liSerie of liElements) {
+    liSerie.addEventListener('click', saveSerieFav);
   }
 }
 
 //
-function handleEvent(ev) {
+function saveSerieFav(ev) {
   let liSelected = ev.currentTarget;
-  for (let i = 0; i < dataShowResult.length; i++) {
-    if (liSelected.innerText === dataShowResult[i].name) {
-      showFavResult = dataShowResult.push(dataShowResult[i]);
+  let idLiSelected = parseInt(liSelected.dataset.id);
+  let elementSerie;
+  for (const itemSerie of dataSerieResult) {
+    if (idLiSelected === itemSerie.id) {
+      elementSerie = itemSerie;
     }
   }
-  paintFav();
-  /* console.dir(); */
+  serieFavResult.push(elementSerie);
+  paintFavList(serieFavResult);
 }
-function paintFav() {
-  ulFav.innerHTML = 'HOLA';
+function paintFavList(pSerieFavResult) {
+  console.log(pSerieFavResult);
+  ulFav.innerHTML = '';
+  for (let itemFav of pSerieFavResult) {
+    let liElement = document.createElement('li');
+    /* liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie' );*/
+    liElement.setAttribute('data-id', itemFav.id);
+    let titleElement = document.createElement('h2');
+    let textTitle = document.createTextNode(itemFav.name);
+    let imgElement = document.createElement('img');
+    if (itemFav.image === null) {
+      imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
+    } else {
+      imgElement.setAttribute('src', itemFav.image.medium);
+    }
+    titleElement.appendChild(textTitle);
+    liElement.appendChild(titleElement);
+    liElement.appendChild(imgElement);
+    ulFav.appendChild(liElement);
+  }
 }
-
 btnElement.addEventListener('click', getDataApi);
