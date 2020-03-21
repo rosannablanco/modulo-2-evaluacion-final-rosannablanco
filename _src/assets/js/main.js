@@ -93,9 +93,9 @@ function paintFavList() {
 function removeFav(ev) {
   let liSelected = ev.currentTarget;
   let idLiSelected = parseInt(liSelected.dataset.id);
-  for (const itemFav of serieFavResult) {
-    if (idLiSelected === itemFav.id) {
-      serieFavResult.splice(itemFav, 1);
+  for (let i = 0; i < serieFavResult.length; i++) {
+    if (idLiSelected === serieFavResult[i].id) {
+      serieFavResult.splice(i, 1);
     }
   }
   paintFavList();
