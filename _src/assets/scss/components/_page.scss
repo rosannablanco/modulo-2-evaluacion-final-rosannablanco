@@ -10,9 +10,36 @@
       padding: 10px 20px;
     }
   }
-  &__ul {
-    margin: 0 auto;
-    padding-top: 20px;
-    border-top: 1px solid rgb(194, 194, 194);
+  &__article {
+    display: flex;
+    &__ul {
+      list-style: none;
+      width: 30%;
+      background-color: rgb(252, 249, 224);
+      &__list {
+        padding: 10px 0;
+        img {
+          width: 75px;
+        }
+      }
+    }
+    &__ul--serie {
+      width: 70%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      background-color: rgb(226, 226, 226);
+
+      &--list {
+        padding: 20px;
+        &--title {
+          padding: 20px 0;
+        }
+        img {
+          width: 150px;
+        }
+      }
+    }
   }
 }
