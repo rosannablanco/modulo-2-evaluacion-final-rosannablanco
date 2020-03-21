@@ -76,6 +76,7 @@ function paintFavList() {
     let titleElement = document.createElement('h2');
     let textTitle = document.createTextNode(itemFav.name);
     let imgElement = document.createElement('img');
+    imgElement.setAttribute('class', 'js-li-fav');
     if (itemFav.image === null) {
       imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
     } else {
@@ -85,7 +86,20 @@ function paintFavList() {
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
     ulFav.appendChild(liElement);
+    liElement.addEventListener('click', removeFav);
   }
+}
+//function remove Fav
+function removeFav(ev) {
+  let liSelected = ev.currentTarget;
+  let idLiSelected = parseInt(liSelected.dataset.id);
+  for (const itemFav of serieFavResult) {
+    if (idLiSelected === itemFav.id) {
+      serieFavResult.splice(itemFav, 1);
+    }
+  }
+  paintFavList();
+  setInSessionStorage();
 }
 //function save in sessionStorage
 function setInSessionStorage() {
