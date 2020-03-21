@@ -26,12 +26,11 @@ function saveDataShow(pData) {
     let data = pData[i].show;
     dataSerieResult.push(data);
   }
-  console.log(dataSerieResult);
-  paintResultShow(dataSerieResult);
+  paintResultShow();
 }
-function paintResultShow(pDataSerieResult) {
+function paintResultShow() {
   ulElement.innerHTML = '';
-  for (const itemSerie of pDataSerieResult) {
+  for (const itemSerie of dataSerieResult) {
     let liElement = document.createElement('li');
     liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie');
     liElement.setAttribute('data-id', itemSerie.id);
@@ -65,12 +64,12 @@ function saveSerieFav(ev) {
     }
   }
   serieFavResult.push(elementSerie);
-  paintFavList(serieFavResult);
+  paintFavList();
+  setInSessionStorage();
 }
-function paintFavList(pSerieFavResult) {
-  console.log(pSerieFavResult);
+function paintFavList() {
   ulFav.innerHTML = '';
-  for (let itemFav of pSerieFavResult) {
+  for (let itemFav of serieFavResult) {
     let liElement = document.createElement('li');
     /* liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie' );*/
     liElement.setAttribute('data-id', itemFav.id);
@@ -88,4 +87,20 @@ function paintFavList(pSerieFavResult) {
     ulFav.appendChild(liElement);
   }
 }
+//function save in sessionStorage
+function setInSessionStorage() {
+  const stringifyFav = JSON.stringify(serieFavResult);
+  sessionStorage.setItem('serieFavResult', stringifyFav);
+}
+
+// session storage
+const getFromSessionStorage = () => {
+  const localStorageFav = sessionStorage.getItem('serieFavResult');
+  if (localStorageFav !== null) {
+    serieFavResult = JSON.parse(localStorageFav);
+    paintFavList();
+  }
+};
+
 btnElement.addEventListener('click', getDataApi);
+getFromSessionStorage();
