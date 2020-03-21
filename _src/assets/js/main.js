@@ -56,6 +56,7 @@ function paintResultShow() {
 //
 function saveSerieFav(ev) {
   let liSelected = ev.currentTarget;
+  liSelected.setAttribute('class', 'class-fav');
   let idLiSelected = parseInt(liSelected.dataset.id);
   let elementSerie;
   for (const itemSerie of dataSerieResult) {
