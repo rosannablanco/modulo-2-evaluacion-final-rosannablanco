@@ -5,9 +5,8 @@ const btnElement = document.querySelector('.js-btn');
 const ulElement = document.querySelector('.js-ul-movie');
 const ulFav = document.querySelector('.js-ul-fav');
 
-//arrays results
-let dataShowResult = new Array();
-let showFavResult = new Array();
+//arrays results search serie
+let dataSerieResult = new Array();
 
 function getDataApi() {
   const inputElementValue = inputElement.value;
@@ -20,25 +19,22 @@ function getDataApi() {
 }
 
 function saveDataShow(pData) {
+  dataSerieResult = [];
   for (let i = 0; i < pData.length; i++) {
     let data = pData[i].show;
-    dataShowResult.push(data);
+    dataSerieResult.push(data);
   }
-  /*  console.log(dataShow); */
-  paintResultShow(dataShowResult);
+  paintResultShow(dataSerieResult);
 }
-function paintResultShow(pDataShowResult) {
-  for (const itemSerie of pDataShowResult) {
+function paintResultShow(pDataSerieResult) {
+  ulElement.innerHTML = '';
+  for (const itemSerie of pDataSerieResult) {
     let liElement = document.createElement('li');
     liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie');
     let titleElement = document.createElement('h2');
     let textTitle = document.createTextNode(itemSerie.name);
     let imgElement = document.createElement('img');
-    if (itemSerie.image.medium !== '') {
-      imgElement.setAttribute('src', itemSerie.image.medium);
-    } else {
-      imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
-    }
+    imgElement.setAttribute('src', itemSerie.image.medium);
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
