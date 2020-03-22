@@ -50,11 +50,11 @@ function paintResultSeries(pArray, pUl) {
       imgElement.setAttribute('src', itemSerie.image.medium);
     }
     const btnFav = document.createElement('button');
-    btnFav.setAttribute('class', 'ul__li__btn-star');
+    btnFav.setAttribute('class', 'ul__li__btn btn add');
     const contentBtnFav = document.createTextNode('Añadir fav');
 
     const btnDelete = document.createElement('button');
-    btnDelete.setAttribute('class', 'ul__li__btn-star');
+    btnDelete.setAttribute('class', 'ul__li__btn btn delete');
     const contentBtnDelete = document.createTextNode('Borrar fav');
 
     btnFav.appendChild(contentBtnFav);
@@ -109,7 +109,7 @@ function paintResultSeriesFav() {
     }
 
     const btnDelete = document.createElement('button');
-    btnDelete.setAttribute('class', 'ul__li__btn-star');
+    btnDelete.setAttribute('class', 'ul__li__btn btn delete');
     const contentBtnDelete = document.createTextNode('Borrar fav');
 
     btnDelete.appendChild(contentBtnDelete);

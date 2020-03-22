@@ -26,12 +26,7 @@
     display: flex;
     &__article--fav {
       padding: 0 20px;
-      .article__title {
-        font-weight: 600;
-        text-align: center;
-        padding: 20px 0;
-        font-size: 1.2rem;
-      }
+
       .article__ul--fav {
         display: flex;
         flex-direction: column;
@@ -51,19 +46,6 @@
             margin: 0 auto;
             width: 125px;
           }
-          &__btn-trash {
-            background: none;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            .fa-trash-alt {
-              color: white;
-              font-size: 18px;
-              &:hover {
-                color: rgb(63, 63, 63);
-              }
-            }
-          }
         }
       }
     }
@@ -73,11 +55,6 @@
       padding: 0 5%;
       text-align: center;
 
-      .article__title {
-        font-weight: 600;
-        padding: 20px 0;
-        font-size: 1.2rem;
-      }
       .article__ul--serie {
         display: flex;
         flex-wrap: wrap;
@@ -93,32 +70,45 @@
             display: block;
             margin: 0 auto;
           }
-          &__btn-star {
-            background: none;
-            border: none;
-            cursor: pointer;
-            .fa-star {
-              border: none;
-              padding: 10px;
-              color: rgb(177, 176, 175);
-              font-size: 18px;
-
-              &:hover {
-                color: rgb(255, 174, 0);
-              }
-            }
-          }
         }
-        //class for add style in js
-        .class-fav {
-          background-color: rgba(255, 187, 0, 0.514);
-          color: white;
+        //class globales li
+        .article__title {
+          font-weight: 600;
+          padding: 20px 0;
+          font-size: 1.2rem;
         }
       }
     }
   }
 }
 //clases utilizadas en js
+.btn {
+  margin: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: 2px solid rgb(63, 63, 63);
+  font-weight: 600;
+}
+.add {
+  &:hover {
+    background: tomato;
+  }
+}
+.delete {
+  &:hover {
+    background: rgb(71, 255, 255);
+  }
+}
+//class for add style fav
+.class-fav {
+  background-color: rgba(255, 187, 0, 0.514);
+  color: white;
+  .btn {
+    border: 2px solid white;
+  }
+}
 .btn-style {
   border: none;
 }
