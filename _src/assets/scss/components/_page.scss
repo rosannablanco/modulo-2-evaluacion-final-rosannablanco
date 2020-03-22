@@ -1,43 +1,96 @@
 .page__main {
   padding: 20px 0;
-  text-align: center;
+  color: rgb(63, 63, 63);
   &__form {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 40px;
     &__input {
+      border: 2px solid rgb(63, 63, 63);
       padding: 10px;
     }
     &__btn {
+      border: 2px solid rgb(63, 63, 63);
+      background-color: tomato;
+      color: white;
       padding: 10px 20px;
+      cursor: pointer;
     }
   }
   &__article {
     display: flex;
-    &__ul {
+    padding: 0 20px;
+    &__ul--fav {
+      height: max-content;
       list-style: none;
-      width: 30%;
-      background-color: rgb(252, 249, 224);
-      &__list {
+      background-color: rgb(211, 211, 211);
+      padding: 0 20px;
+
+      .ul__title {
+        font-weight: 600;
         padding: 10px 0;
-        img {
-          width: 75px;
+        .fa-star {
+          color: rgb(255, 174, 0);
+          font-size: 18px;
+          padding: 10px;
+        }
+      }
+      .ul__li {
+        text-align: center;
+        border-top: 2px solid rgb(252, 252, 252);
+        padding: 10px 5px;
+        &__title {
+          font-size: 14px;
+          padding: 10px 0;
+        }
+        &__img {
+          width: 125px;
+        }
+        &__btn-delete {
+          border: none;
+          cursor: pointer;
+
+          .fa-trash-alt {
+            color: rgb(56, 56, 56);
+            font-size: 18px;
+            padding: 10px;
+            &:hover {
+              color: white;
+              background-color: rgb(56, 56, 56);
+            }
+          }
         }
       }
     }
+    .hidden {
+      display: none;
+    }
     &__ul--serie {
-      width: 70%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-evenly;
+      align-content: flex-start;
       list-style: none;
-      background-color: rgb(226, 226, 226);
+      text-align: center;
 
-      &--list {
-        padding: 20px;
-        &--title {
-          padding: 20px 0;
+      .ul__li {
+        text-align: center;
+        padding: 15px;
+        &__title {
+          text-align: left;
+          padding: 10px 0;
         }
-        img {
-          width: 150px;
+        &__btn-star {
+          border: none;
+          cursor: pointer;
+          .fa-star {
+            color: rgb(255, 174, 0);
+            font-size: 18px;
+            padding: 10px;
+            &:hover {
+              color: white;
+              background-color: rgb(255, 174, 0);
+            }
+          }
         }
       }
     }
