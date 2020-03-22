@@ -69,6 +69,7 @@ function paintResultSeries(pArray, pUl) {
     btnDelete.addEventListener('click', removeFav);
   }
   compararListado();
+  getLiSerie(pUl);
 }
 
 //function save favourite
@@ -78,9 +79,6 @@ function saveSerieFav(ev) {
   liSelected.classList.add('class-fav');
   const idSelected = parseInt(liSelected.dataset.id);
   let favourite;
-
-  console.log(idSelected);
-  console.log(resultSeries);
   for (const itemSerie of resultSeries) {
     if (idSelected === itemSerie.id) {
       favourite = itemSerie;
@@ -125,7 +123,6 @@ function paintResultSeriesFav() {
 function removeFav(ev) {
   const btnSelected = ev.currentTarget;
   const parentElement = btnSelected.parentElement;
-
   let idSelected = parseInt(parentElement.dataset.id);
 
   for (let i = 0; i < seriesFav.length; i++) {
@@ -134,8 +131,16 @@ function removeFav(ev) {
       parentElement.remove;
     }
   }
+  parentElement.classList.remove('class-fav');
   paintResultSeriesFav();
+
   setInSessionStorage();
+}
+//obtener li de series
+function getLiSerie(pUlSerie) {
+  for (const li of pUlSerie) {
+    console.log(li);
+  }
 }
 
 //function save in sessionStorage
