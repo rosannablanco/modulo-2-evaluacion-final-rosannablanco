@@ -1,35 +1,84 @@
 .page__main {
-  padding: 20px;
+  color: rgb(63, 63, 63);
   &__form {
+    margin: 0 5%;
     text-align: center;
+    padding: 40px 0;
+    border-bottom: 1px solid rgb(63, 63, 63);
     margin-bottom: 20px;
     &__input {
+      border: 2px solid rgb(63, 63, 63);
       padding: 10px;
-    }
-    &__btn {
-      padding: 10px 20px;
-    }
-  }
-  &__container {
-    border-top: 1px solid rgb(194, 194, 194);
-    padding-top: 20px;
-    display: flex;
-    justify-content: space-between;
-
-    &__ul {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      &__li {
-        padding: 10px 20px;
-        background-color: rgb(212, 212, 212);
-        list-style: none;
+      @media all and(max-width:561px) {
+        width: 60%;
       }
     }
+    &__btn {
+      border: 2px solid rgb(63, 63, 63);
+      background-color: rgb(104, 104, 104);
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
   }
-  .class-fav {
-    background-color: red;
-    color: white;
+  &__section {
+    margin: 0 5%;
+    display: flex;
+    &__article--fav {
+      padding: 0 20px;
+      border-right: 1px solid rgb(63, 63, 63);
+      text-align: center;
+      .article__title {
+        font-weight: 600;
+        padding: 20px 0;
+        font-size: 1.2rem;
+      }
+      .article__ul--fav {
+        list-style: none;
+        padding: 0 50px;
+        background-color: rgb(243, 243, 243);
+        .ul__li {
+          border-bottom: 2px solid rgb(252, 252, 252);
+          &__title {
+            text-align: left;
+            font-size: 14px;
+            padding: 10px 0;
+          }
+          &__img {
+            width: 125px;
+          }
+        }
+      }
+    }
+    &__article--serie {
+      padding: 0 5%;
+
+      .article__title {
+        text-align: center;
+        font-weight: 600;
+        padding: 20px 0;
+        font-size: 1.2rem;
+      }
+      .article__ul--serie {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: max-content;
+        list-style: none;
+        .ul__li {
+          text-align: center;
+          padding: 15px;
+          &__title {
+            text-align: left;
+            padding: 10px 0;
+          }
+          /* &__img {
+          } */
+        }
+        .class-fav {
+          background-color: rgb(255, 187, 0);
+        }
+      }
+    }
   }
 }

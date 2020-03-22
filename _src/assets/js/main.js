@@ -2,14 +2,15 @@
 // global variables
 const inputElement = document.querySelector('.js-input');
 const btnElement = document.querySelector('.js-btn');
-const ulElement = document.querySelector('.js-ul-movie');
 const ulFav = document.querySelector('.js-ul-fav');
+const ulSerie = document.querySelector('.js-ul-serie');
 
 //arrays results search serie
 let dataSerieResult = new Array();
 //arrays results fav serie
 let serieFavResult = new Array();
 
+//function get data API
 function getDataApi() {
   const inputElementValue = inputElement.value;
   fetch('http://api.tvmaze.com/search/shows?q=' + inputElementValue)
@@ -28,15 +29,18 @@ function saveDataShow(pData) {
   }
   paintResultShow();
 }
+
 function paintResultShow() {
-  ulElement.innerHTML = '';
+  ulSerie.innerHTML = '';
   for (const itemSerie of dataSerieResult) {
     let liElement = document.createElement('li');
-    liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie');
+    liElement.setAttribute('class', 'ul__li js-li-serie');
     liElement.setAttribute('data-id', itemSerie.id);
-    let titleElement = document.createElement('h2');
+    let titleElement = document.createElement('h4');
+    titleElement.setAttribute('class', 'ul__li__title');
     let textTitle = document.createTextNode(itemSerie.name);
     let imgElement = document.createElement('img');
+    imgElement.setAttribute('class', 'ul__li__img');
     if (itemSerie.image === null) {
       imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
     } else {
@@ -45,18 +49,19 @@ function paintResultShow() {
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
-    ulElement.appendChild(liElement);
+    ulSerie.appendChild(liElement);
+    liElement.addEventListener('click', saveSerieFav);
   }
-  let liElements = document.querySelectorAll('.js-li-movie');
+  /* let liElements = document.querySelectorAll('.js-li-serie');
   for (const liSerie of liElements) {
     liSerie.addEventListener('click', saveSerieFav);
-  }
+  } */
 }
 
 //
 function saveSerieFav(ev) {
   let liSelected = ev.currentTarget;
-  liSelected.setAttribute('class', 'class-fav');
+  liSelected.classList.add('class-fav');
   let idLiSelected = parseInt(liSelected.dataset.id);
   let elementSerie;
   for (const itemSerie of dataSerieResult) {
@@ -72,12 +77,13 @@ function paintFavList() {
   ulFav.innerHTML = '';
   for (let itemFav of serieFavResult) {
     let liElement = document.createElement('li');
-    /* liElement.setAttribute('class', 'page__main__conatiner__ul__li js-li-movie' );*/
+    liElement.setAttribute('class', 'ul__li js-list-fav js-li-fav');
     liElement.setAttribute('data-id', itemFav.id);
-    let titleElement = document.createElement('h2');
+    let titleElement = document.createElement('h4');
+    titleElement.setAttribute('class', 'ul__li__title');
     let textTitle = document.createTextNode(itemFav.name);
     let imgElement = document.createElement('img');
-    imgElement.setAttribute('class', 'js-li-fav');
+    imgElement.setAttribute('class', 'ul__li__img js-img');
     if (itemFav.image === null) {
       imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
     } else {
@@ -94,12 +100,14 @@ function paintFavList() {
 function removeFav(ev) {
   let liSelected = ev.currentTarget;
   let idLiSelected = parseInt(liSelected.dataset.id);
+  const parentElement = liSelected.parentElement;
   for (let i = 0; i < serieFavResult.length; i++) {
     if (idLiSelected === serieFavResult[i].id) {
       serieFavResult.splice(i, 1);
+      parentElement.removeChild(liSelected);
     }
   }
-  paintFavList();
+  /* paintFavList(); */
   setInSessionStorage();
 }
 //function save in sessionStorage
