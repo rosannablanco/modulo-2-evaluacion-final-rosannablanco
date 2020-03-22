@@ -38,18 +38,17 @@
         justify-content: center;
         list-style: none;
         background-color: rgb(255, 187, 0);
-        text-align: right;
+        text-align: center;
         .ul__li {
           padding: 10px 20px;
           border-bottom: 2px solid white;
           &__title {
-            text-align: left;
             font-size: 14px;
             padding: 10px 0;
-            letter-spacing: 0.1rem;
           }
           &__img {
             display: block;
+            margin: 0 auto;
             width: 125px;
           }
           &__btn-trash {
@@ -60,7 +59,6 @@
             .fa-trash-alt {
               color: white;
               font-size: 18px;
-              text-align: right;
               &:hover {
                 color: rgb(63, 63, 63);
               }
@@ -69,11 +67,13 @@
         }
       }
     }
+    //styles serie
     &__article--serie {
+      width: 75%;
       padding: 0 5%;
+      text-align: center;
 
       .article__title {
-        text-align: center;
         font-weight: 600;
         padding: 20px 0;
         font-size: 1.2rem;
@@ -86,14 +86,12 @@
         list-style: none;
         .ul__li {
           padding: 15px;
-          text-align: right;
-          letter-spacing: 0.1rem;
           &__title {
-            text-align: left;
             padding: 10px 0;
           }
           &__img {
             display: block;
+            margin: 0 auto;
           }
           &__btn-star {
             background: none;
@@ -119,4 +117,8 @@
       }
     }
   }
+}
+//clases utilizadas en js
+.btn-style {
+  border: none;
 }

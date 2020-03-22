@@ -2,13 +2,13 @@
 // global variables
 const inputElement = document.querySelector('.js-input');
 const btnElement = document.querySelector('.js-btn');
-const ulFav = document.querySelector('.js-ul-fav');
 const ulSerie = document.querySelector('.js-ul-serie');
+const ulFav = document.querySelector('.js-ul-fav');
 
-//arrays results search serie
-let dataSerieResult = new Array();
+//arrays results series search serie
+let resultSeries = new Array();
 //arrays results fav serie
-let serieFavResult = new Array();
+let seriesFav = new Array();
 
 //function get data API
 function getDataApi() {
@@ -18,124 +18,154 @@ function getDataApi() {
     .then(data => {
       saveDataShow(data);
     });
-  /* .catch(error => console.log(`Ha sucedido un error: ${error}`)); */
 }
 
+//Save data show api
+//in array resultSeries with only the data show
 function saveDataShow(pData) {
-  dataSerieResult = [];
+  ulSerie.innerHTML = '';
+  resultSeries = [];
   for (let i = 0; i < pData.length; i++) {
     let data = pData[i].show;
-    dataSerieResult.push(data);
+    resultSeries.push(data);
   }
-  paintResultShow();
+  paintResultSeries(resultSeries, ulSerie);
 }
 
-function paintResultShow() {
-  ulSerie.innerHTML = '';
-  for (const itemSerie of dataSerieResult) {
-    let liElement = document.createElement('li');
+//function paint results series
+function paintResultSeries(pArray, pUl) {
+  pUl.innerHTML = '';
+  for (const itemSerie of pArray) {
+    const liElement = document.createElement('li');
     liElement.setAttribute('class', 'ul__li js-li-serie');
     liElement.setAttribute('data-id', itemSerie.id);
-    let titleElement = document.createElement('h4');
+    const titleElement = document.createElement('h4');
     titleElement.setAttribute('class', 'ul__li__title');
-    let textTitle = document.createTextNode(itemSerie.name);
-    let imgElement = document.createElement('img');
+    const textTitle = document.createTextNode(itemSerie.name);
+    const imgElement = document.createElement('img');
     imgElement.setAttribute('class', 'ul__li__img');
     if (itemSerie.image === null) {
       imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
     } else {
       imgElement.setAttribute('src', itemSerie.image.medium);
     }
-    let btnFav = document.createElement('button');
+    const btnFav = document.createElement('button');
     btnFav.setAttribute('class', 'ul__li__btn-star');
-    let contentBtnFav = document.createElement('i');
-    contentBtnFav.setAttribute('class', 'fas fa-star');
+    const contentBtnFav = document.createTextNode('Añadir fav');
+
+    const btnDelete = document.createElement('button');
+    btnDelete.setAttribute('class', 'ul__li__btn-star');
+    const contentBtnDelete = document.createTextNode('Borrar fav');
+
     btnFav.appendChild(contentBtnFav);
+    btnDelete.appendChild(contentBtnDelete);
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
     liElement.appendChild(btnFav);
-    ulSerie.appendChild(liElement);
-    liElement.addEventListener('click', saveSerieFav);
+    liElement.appendChild(btnDelete);
+    pUl.appendChild(liElement);
+    btnFav.addEventListener('click', saveSerieFav);
+    btnDelete.addEventListener('click', removeFav);
   }
-  /* let liElements = document.querySelectorAll('.js-li-serie');
-  for (const liSerie of liElements) {
-    liSerie.addEventListener('click', saveSerieFav);
-  } */
+  compararListado();
 }
 
-//
+//function save favourite
 function saveSerieFav(ev) {
-  let liSelected = ev.currentTarget;
+  const btnSelect = ev.currentTarget;
+  const liSelected = btnSelect.parentElement;
   liSelected.classList.add('class-fav');
-  let idLiSelected = parseInt(liSelected.dataset.id);
-  let elementSerie;
-  for (const itemSerie of dataSerieResult) {
-    if (idLiSelected === itemSerie.id) {
-      elementSerie = itemSerie;
+  const idSelected = parseInt(liSelected.dataset.id);
+  let favourite;
+
+  console.log(idSelected);
+  console.log(resultSeries);
+  for (const itemSerie of resultSeries) {
+    if (idSelected === itemSerie.id) {
+      favourite = itemSerie;
     }
   }
-  serieFavResult.push(elementSerie);
-  paintFavList();
+  seriesFav.push(favourite);
+  paintResultSeriesFav();
   setInSessionStorage();
 }
-function paintFavList() {
+//function paint resultados favoritos
+function paintResultSeriesFav() {
   ulFav.innerHTML = '';
-  for (let itemFav of serieFavResult) {
-    let liElement = document.createElement('li');
-    liElement.setAttribute('class', 'ul__li js-list-fav js-li-fav');
-    liElement.setAttribute('data-id', itemFav.id);
-    let titleElement = document.createElement('h4');
+  for (const itemSerie of seriesFav) {
+    const liElement = document.createElement('li');
+    liElement.setAttribute('class', 'ul__li js-li-serie');
+    liElement.setAttribute('data-id', itemSerie.id);
+    const titleElement = document.createElement('h4');
     titleElement.setAttribute('class', 'ul__li__title');
-    let textTitle = document.createTextNode(itemFav.name);
-    let imgElement = document.createElement('img');
-    imgElement.setAttribute('class', 'ul__li__img js-img');
-    if (itemFav.image === null) {
+    const textTitle = document.createTextNode(itemSerie.name);
+    const imgElement = document.createElement('img');
+    imgElement.setAttribute('class', 'ul__li__img');
+    if (itemSerie.image === null) {
       imgElement.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
     } else {
-      imgElement.setAttribute('src', itemFav.image.medium);
+      imgElement.setAttribute('src', itemSerie.image.medium);
     }
-    let btnFav = document.createElement('button');
-    btnFav.setAttribute('class', 'ul__li__btn-trash');
-    let contentBtnFav = document.createElement('i');
-    contentBtnFav.setAttribute('class', 'far fa-trash-alt');
-    btnFav.appendChild(contentBtnFav);
+
+    const btnDelete = document.createElement('button');
+    btnDelete.setAttribute('class', 'ul__li__btn-star');
+    const contentBtnDelete = document.createTextNode('Borrar fav');
+
+    btnDelete.appendChild(contentBtnDelete);
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
-    liElement.appendChild(btnFav);
+    liElement.appendChild(btnDelete);
     ulFav.appendChild(liElement);
-    liElement.addEventListener('click', removeFav);
+    btnDelete.addEventListener('click', removeFav);
   }
 }
 //function remove Fav
 function removeFav(ev) {
-  let liSelected = ev.currentTarget;
-  let idLiSelected = parseInt(liSelected.dataset.id);
-  const parentElement = liSelected.parentElement;
-  for (let i = 0; i < serieFavResult.length; i++) {
-    if (idLiSelected === serieFavResult[i].id) {
-      serieFavResult.splice(i, 1);
-      parentElement.removeChild(liSelected);
+  const btnSelected = ev.currentTarget;
+  const parentElement = btnSelected.parentElement;
+
+  let idSelected = parseInt(parentElement.dataset.id);
+
+  for (let i = 0; i < seriesFav.length; i++) {
+    if (idSelected === seriesFav[i].id) {
+      seriesFav.splice(i, 1);
+      parentElement.remove;
     }
   }
-  /* paintFavList(); */
+  paintResultSeriesFav();
   setInSessionStorage();
 }
+
 //function save in sessionStorage
 function setInSessionStorage() {
-  const stringifyFav = JSON.stringify(serieFavResult);
-  sessionStorage.setItem('serieFavResult', stringifyFav);
+  const stringifyFav = JSON.stringify(seriesFav);
+  sessionStorage.setItem('seriesFav', stringifyFav);
 }
-
-// session storage
+//function get fav in sessionStorage
 const getFromSessionStorage = () => {
-  const localStorageFav = sessionStorage.getItem('serieFavResult');
-  if (localStorageFav !== null) {
-    serieFavResult = JSON.parse(localStorageFav);
-    paintFavList();
+  const sessionStorageFav = sessionStorage.getItem('seriesFav');
+  if (sessionStorageFav !== null) {
+    seriesFav = JSON.parse(sessionStorageFav);
+    paintResultSeriesFav();
   }
 };
-
+//comparar listados
+function compararListado() {
+  if (seriesFav !== null) {
+    let liSerie = ulSerie.querySelectorAll('.js-li-serie');
+    for (let li of liSerie) {
+      const idLi = parseInt(li.dataset.id);
+      for (const fav of seriesFav) {
+        let idFav = fav.id;
+        if (idLi === idFav) {
+          li.classList.add('class-fav');
+        }
+      }
+      console.log(idLi);
+    }
+  }
+}
 btnElement.addEventListener('click', getDataApi);
 getFromSessionStorage();
