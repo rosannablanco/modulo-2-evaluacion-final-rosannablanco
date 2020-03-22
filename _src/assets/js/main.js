@@ -46,9 +46,15 @@ function paintResultShow() {
     } else {
       imgElement.setAttribute('src', itemSerie.image.medium);
     }
+    let btnFav = document.createElement('button');
+    btnFav.setAttribute('class', 'ul__li__btn-star');
+    let contentBtnFav = document.createElement('i');
+    contentBtnFav.setAttribute('class', 'fas fa-star');
+    btnFav.appendChild(contentBtnFav);
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
+    liElement.appendChild(btnFav);
     ulSerie.appendChild(liElement);
     liElement.addEventListener('click', saveSerieFav);
   }
@@ -89,9 +95,15 @@ function paintFavList() {
     } else {
       imgElement.setAttribute('src', itemFav.image.medium);
     }
+    let btnFav = document.createElement('button');
+    btnFav.setAttribute('class', 'ul__li__btn-trash');
+    let contentBtnFav = document.createElement('i');
+    contentBtnFav.setAttribute('class', 'far fa-trash-alt');
+    btnFav.appendChild(contentBtnFav);
     titleElement.appendChild(textTitle);
     liElement.appendChild(titleElement);
     liElement.appendChild(imgElement);
+    liElement.appendChild(btnFav);
     ulFav.appendChild(liElement);
     liElement.addEventListener('click', removeFav);
   }
