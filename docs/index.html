@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>m2-evaluacion-final-rosannablanco</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+        rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous" />
+        <link rel="stylesheet" href="./assets/css/main.css" />
+    </head>
+    
+    <body>
+        <div class="page">
+            <header class="page__header">
+                 <h1 class="page__header__title">Buscador de series</h1> 
+            </header>
+            <main class="page__main">
+                <form class="page__main__form js-form">
+                    <input type="text" class="page__main__form__input js-input" id="movie"
+                    name="movie" value="" placeholder="Titulo de serie" size="50" required
+                    />
+                    <button type="button" class="page__main__form__btn js-btn">Buscar</button>
+                </form>
+                <section class="page__main__section">
+                    <article class="page__main__section__article--fav">
+                         <h3 class="article__title">         Series favoritas       </h3> 
+                        <!-- listado favorites -->
+                        <ul class="article__ul--fav  js-ul-fav"></ul>
+                    </article>
+                    <article class="page__main__section__article--serie">
+                         <h3 class="article__title">         Resultados búsqueda       </h3> 
+                        <!-- listado series -->
+                        <ul class="article__ul--serie js-ul-serie"></ul>
+                    </article>
+                </section>
+            </main>
+            <footer class="page__footer"></footer>
+        </div>
+        <script src="./assets/js/main.js"></script>
+    </body>
+
+</html>

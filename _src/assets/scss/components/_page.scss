@@ -26,7 +26,6 @@
     display: flex;
     &__article--fav {
       padding: 0 20px;
-
       .article__ul--fav {
         display: flex;
         flex-direction: column;
@@ -34,6 +33,8 @@
         list-style: none;
         background-color: rgb(255, 187, 0);
         text-align: center;
+        width: max-content;
+
         .ul__li {
           padding: 10px 20px;
           border-bottom: 2px solid white;
@@ -51,7 +52,7 @@
     }
     //styles serie
     &__article--serie {
-      width: 75%;
+      width: 75vw;
       padding: 0 5%;
       text-align: center;
       .article__ul--serie {
@@ -70,13 +71,14 @@
             margin: 0 auto;
           }
         }
-        //class global titulo de article
-        .article__title {
-          font-weight: 600;
-          padding: 20px 0;
-          font-size: 1.2rem;
-        }
       }
+    }
+    //class global titulo de article
+    .article__title {
+      font-weight: 600;
+      padding: 20px 0;
+      font-size: 1.2rem;
+      text-align: center;
     }
     //clases utilizadas en js
     .btn {
