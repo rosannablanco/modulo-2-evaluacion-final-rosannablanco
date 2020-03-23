@@ -32,11 +32,11 @@ function saveDataShow(pData) {
     let data = pData[i].show;
     resultSeries.push(data);
   }
-  paintResultSeries(resultSeries, ulSerie, classSerie);
+  paintHtmlResults(resultSeries, ulSerie, classSerie);
 }
 
-//function paint results series
-function paintResultSeries(pArray, pUl, pClase) {
+//function paint results series and favourites
+function paintHtmlResults(pArray, pUl, pClase) {
   pUl.innerHTML = '';
   for (const itemSerie of pArray) {
     const liElement = document.createElement('li');
@@ -69,14 +69,14 @@ function paintResultSeries(pArray, pUl, pClase) {
     liElement.appendChild(btnFav);
     liElement.appendChild(btnDelete);
     pUl.appendChild(liElement);
+    //delete btn add in list fav
     if (pClase === classFav) {
       liElement.removeChild(btnFav);
-      btnDelete.addEventListener('click', eliminarFavStyle);
     }
     btnFav.addEventListener('click', saveSerieFav);
     btnDelete.addEventListener('click', removeFav);
   }
-  compararListado();
+  compareLists();
 }
 
 //function save favourite
@@ -91,9 +91,9 @@ function saveSerieFav(ev) {
       favourite = itemSerie;
     }
   }
-
   seriesFav.push(favourite);
-  paintResultSeries(seriesFav, ulFav, classFav);
+
+  paintHtmlResults(seriesFav, ulFav, classFav);
   setInSessionStorage();
 }
 
@@ -102,16 +102,20 @@ function removeFav(ev) {
   const btnSelected = ev.currentTarget;
   const parentElement = btnSelected.parentElement;
   let idSelected = parseInt(parentElement.dataset.id);
-
   for (let i = 0; i < seriesFav.length; i++) {
     if (idSelected === seriesFav[i].id) {
       seriesFav.splice(i, 1);
-      parentElement.remove;
     }
   }
-  parentElement.classList.remove('class-fav');
-  console.log(parentElement);
-  paintResultSeries(seriesFav, ulFav, classFav);
+  let liChild = ulSerie.children;
+  for (let li of liChild) {
+    let idLiSerie = parseInt(li.dataset.id);
+    if (idSelected === idLiSerie) {
+      li.classList.remove('class-fav');
+    }
+  }
+
+  paintHtmlResults(seriesFav, ulFav, classFav);
   setInSessionStorage();
 }
 
@@ -120,17 +124,17 @@ function setInSessionStorage() {
   const stringifyFav = JSON.stringify(seriesFav);
   sessionStorage.setItem('seriesFav', stringifyFav);
 }
+
 //function get fav in sessionStorage
 const getFromSessionStorage = () => {
   const sessionStorageFav = sessionStorage.getItem('seriesFav');
   if (sessionStorageFav !== null) {
     seriesFav = JSON.parse(sessionStorageFav);
-    paintResultSeries(seriesFav, ulFav, classFav);
   }
 };
 
-//comparar listados
-function compararListado() {
+//compare lists for paint class fav when on load
+function compareLists() {
   if (seriesFav !== null) {
     let liSerie = ulSerie.querySelectorAll('.js-li-serie');
     for (let li of liSerie) {
@@ -144,19 +148,7 @@ function compararListado() {
     }
   }
 }
-function eliminarFavStyle() {
-  if (seriesFav !== null) {
-    let liSerie = ulSerie.querySelectorAll('.js-li-serie');
-    for (let li of liSerie) {
-      const idLi = parseInt(li.dataset.id);
-      for (const fav of seriesFav) {
-        let idFav = fav.id;
-        if (idLi === idFav) {
-          li.classList.remove('class-fav');
-        }
-      }
-    }
-  }
-}
+
 btnElement.addEventListener('click', getDataApi);
 getFromSessionStorage();
+paintHtmlResults(seriesFav, ulFav, classFav);
