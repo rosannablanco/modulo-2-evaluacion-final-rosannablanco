@@ -54,7 +54,6 @@
       width: 75%;
       padding: 0 5%;
       text-align: center;
-
       .article__ul--serie {
         display: flex;
         flex-wrap: wrap;
@@ -71,7 +70,7 @@
             margin: 0 auto;
           }
         }
-        //class globales li
+        //class global titulo de article
         .article__title {
           font-weight: 600;
           padding: 20px 0;
@@ -79,36 +78,33 @@
         }
       }
     }
+    //clases utilizadas en js
+    .btn {
+      margin: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 2px solid rgb(63, 63, 63);
+      font-weight: 600;
+    }
+    .add {
+      &:hover {
+        background: tomato;
+      }
+    }
+    .delete {
+      &:hover {
+        background: rgb(71, 255, 255);
+      }
+    }
+    //class for add style fav
+    .class-fav {
+      background-color: rgba(255, 187, 0, 0.514);
+      color: white;
+      .btn {
+        border: 2px solid white;
+      }
+    }
   }
-}
-//clases utilizadas en js
-.btn {
-  margin: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px 15px;
-  border: 2px solid rgb(63, 63, 63);
-  font-weight: 600;
-}
-.add {
-  &:hover {
-    background: tomato;
-  }
-}
-.delete {
-  &:hover {
-    background: rgb(71, 255, 255);
-  }
-}
-//class for add style fav
-.class-fav {
-  background-color: rgba(255, 187, 0, 0.514);
-  color: white;
-  .btn {
-    border: 2px solid white;
-  }
-}
-.btn-style {
-  border: none;
 }
