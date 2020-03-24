@@ -4,6 +4,7 @@ const inputElement = document.querySelector('.js-input');
 const btnElement = document.querySelector('.js-btn');
 const ulSerie = document.querySelector('.js-ul-serie');
 const ulFav = document.querySelector('.js-ul-fav');
+const paragraph = document.querySelector('.js-paragraph');
 
 //arrays results series y fav serie
 let resultSeries = new Array();
@@ -34,9 +35,19 @@ function saveDataShow(pData) {
   }
   paintHtmlResults(resultSeries, ulSerie, classSerie);
 }
+const numbers = [5, 8, 10];
 
 //function paint results series and favourites
 function paintHtmlResults(pArray, pUl, pClase) {
+  paragraph.innerHTML = `El número de resultados es:${pArray.length}`;
+  for (let i = 0; i < numbers.length; i++) {
+    const number = numbers[i];
+    if (pArray.length > number) {
+      console.log(`El número de resultados es:${pArray.length} y es mayor ${number}`);
+    } else {
+      console.log(`El número de resultados es:${pArray.length} y es menor ${number}`);
+    }
+  }
   pUl.innerHTML = '';
   for (const itemSerie of pArray) {
     const liElement = document.createElement('li');
@@ -44,7 +55,9 @@ function paintHtmlResults(pArray, pUl, pClase) {
     liElement.setAttribute('data-id', itemSerie.id);
     const titleElement = document.createElement('h4');
     titleElement.setAttribute('class', 'ul__li__title');
+    const paragraphElement = document.createElement('p');
     const textTitle = document.createTextNode(itemSerie.name);
+    const textParagraph = document.createTextNode(itemSerie.premiered);
     const imgElement = document.createElement('img');
     imgElement.setAttribute('class', 'ul__li__img');
     if (itemSerie.image === null) {
@@ -64,7 +77,9 @@ function paintHtmlResults(pArray, pUl, pClase) {
 
     btnDelete.appendChild(contentBtnDelete);
     titleElement.appendChild(textTitle);
+    paragraphElement.appendChild(textParagraph);
     liElement.appendChild(titleElement);
+    liElement.appendChild(paragraphElement);
     liElement.appendChild(imgElement);
     liElement.appendChild(btnFav);
     liElement.appendChild(btnDelete);
